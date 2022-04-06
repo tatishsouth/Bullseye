@@ -38,14 +38,17 @@ class MainBoardViewController: UIViewController {
     
     @IBAction func didTapSelectButton (_ sender: Any ) {
         
+        
         // Задача
         // 1. Прочитать число из слайдера (sliderValue)
         
         let sliderValue: Float  = slider.value
         
+        
         // 2. Перевести это число в Int(sliderValueInt), чтобы можно было сравнить два целых числа
         
         let sliderValueInt: Int = Int(sliderValue)
+        
         
         // 3. Сравнить два числа, и если они совпадают то начислить 1 очко игроку иначе ничего не делать
         
@@ -60,6 +63,8 @@ class MainBoardViewController: UIViewController {
         }
         
         updateGuessingNumber()
+        updateRound()
+        updateScore()
             
     }
     
@@ -94,15 +99,28 @@ class MainBoardViewController: UIViewController {
     }
     
         func updateRound() {
-        roundLabel.text = "Раунд: " + String(round)
+        
         if round >= 10 {
             round = 0
             print ("Игра окончена")
-            setUp()
         } else {
             round = round + 1
             
         }
+            roundLabel.text = "Раунд: " + String(round)
+    }
+    
+    func updateScore() {
+    
+    if score == 10 {
+        print ("Вы выиграли!")
+    } else {
+        score = score + 1
+        
+    }
+        scoreLabel.text = "Очки: " + String(round)
+    
+     
     }
 }
 

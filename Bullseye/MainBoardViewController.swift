@@ -19,15 +19,14 @@ class MainBoardViewController: UIViewController {
     var guessingNumber: Int = Int.random(in: 1...100)
     // Очки юзера.
     var score: Int = 0
-    
-    var round: Int = 0
+    // Раунды.
+    var round: Int = 1
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let normalThumbImage = UIImage (named: "SliderThumb-Normal")
-        
         let highlightedThumbImage = UIImage (named: "SliderThumb-Highlighted")
         
         slider.setThumbImage(normalThumbImage, for: .normal)
@@ -56,30 +55,13 @@ class MainBoardViewController: UIViewController {
             score = score + 1
             scoreLabel.text = "Очки: " + String(score)
         } else {
-            print ("Вы выбрали число\(sliderValueInt)")
-            
-            
-            let isRoundsOver: Bool = sliderValueInt == guessingNumber
-            if isRoundsOver {
-                print ("Раунды кончились")
-                score = score + 1
-                scoreLabel.text = "Очки: " + String(score)
-            } else {
-                print ("Вы выбрали число\(sliderValueInt)")
-            
-            
-            
-            
-            round = round + 1
-            roundLabel.text = "Раунд: " + String(round)
-            
+            print ("Вы выбрали число \(sliderValueInt)")
             
         }
         
         updateGuessingNumber()
-        
+            
     }
-        
     
     @IBAction func didTryTapAgainButton(_ sender: Any) {
         slider.value = 50
@@ -88,7 +70,7 @@ class MainBoardViewController: UIViewController {
         setUp()
         
     }
-    
+        
     func setUp() {
         // Настройки начала игры
         
@@ -99,7 +81,9 @@ class MainBoardViewController: UIViewController {
         updateGuessingNumber()
         
         // Обнулить очки.
+        score = 0
         scoreLabel.text = "Очки: " + String (score)
+        
     }
     
     func updateGuessingNumber() {
@@ -109,6 +93,16 @@ class MainBoardViewController: UIViewController {
         
     }
     
-    
-    
+        func updateRound() {
+        roundLabel.text = "Раунд: " + String(round)
+        if round >= 10 {
+            round = 0
+            print ("Игра окончена")
+            setUp()
+        } else {
+            round = round + 1
+            
+        }
+    }
 }
+

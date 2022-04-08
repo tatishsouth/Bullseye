@@ -97,7 +97,7 @@ class MainBoardViewController: UIViewController {
         + String (guessingNumber)
         
     }
-    
+    // Функция для обнуления раундов.
         func updateRound() {
         
         if round >= 10 {
@@ -110,17 +110,15 @@ class MainBoardViewController: UIViewController {
             roundLabel.text = "Раунд: " + String(round)
     }
     
+    // Функция для обновления очков.
     func updateScore() {
-    
-    if score == 10 {
-        print ("Вы выиграли!")
+        let sliderValue = Int(slider.value)
+        if guessingNumber == sliderValue {
+            score = score + 1
     } else {
-        score = score + 1
+        print ("Попробуй ещё раз!")
         
-    }
-        scoreLabel.text = "Очки: " + String(round)
-    
-     
-    }
+      }
+   }
 }
 

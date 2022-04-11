@@ -21,8 +21,7 @@ class MainBoardViewController: UIViewController {
     var score: Int = 0
     // Раунды.
     var round: Int = 1
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,17 +40,17 @@ class MainBoardViewController: UIViewController {
         
         // Задача
         // 1. Прочитать число из слайдера (sliderValue)
-        
+
         let sliderValue: Float  = slider.value
-        
-        
+
+
         // 2. Перевести это число в Int(sliderValueInt), чтобы можно было сравнить два целых числа
-        
+
         let sliderValueInt: Int = Int(sliderValue)
-        
-        
+
+
         // 3. Сравнить два числа, и если они совпадают то начислить 1 очко игроку иначе ничего не делать
-        
+
         let isValueEquals: Bool = sliderValueInt == guessingNumber
         if isValueEquals {
             print ("Вы угадали число")
@@ -59,9 +58,9 @@ class MainBoardViewController: UIViewController {
             scoreLabel.text = "Очки: " + String(score)
         } else {
             print ("Вы выбрали число \(sliderValueInt)")
-            
+
         }
-        
+
         updateGuessingNumber()
         updateRound()
         updateScore()
@@ -97,12 +96,38 @@ class MainBoardViewController: UIViewController {
         + String (guessingNumber)
         
     }
+    
+    func showResults() {
+        
+        // Создаем всплывающее окно/алерт.
+        let alert = UIAlertController(title: "Итоги игры", message: "Вы заработали \(score) очков", preferredStyle: .alert)
+        
+        // Создали кнопку для всплывающего окна/алерта.
+        let okButton: UIAlertAction = UIAlertAction(title: "Начать сначала", style: .default, handler: { _ in
+            
+            // Действия при нажатии на кнопку
+            
+            print ("Начали новую игру")
+            
+            self.setUp()
+    
+        })
+        
+        // Добавили кнопку в алерт.
+        alert.addAction(okButton)
+        
+        // Отобразили всплывающее окно/алерт на экране
+        present(alert, animated: true)
+    }
+    
     // Функция для обнуления раундов.
-        func updateRound() {
+    func updateRound() {
         
         if round >= 10 {
-            round = 0
+            round = 1
+            score = 0
             print ("Игра окончена")
+            showResults()
         } else {
             round = round + 1
             
@@ -115,7 +140,7 @@ class MainBoardViewController: UIViewController {
         let sliderValue = Int(slider.value)
         if guessingNumber == sliderValue {
             score = score + 1
-    } else {
+        } else {
         print ("Попробуй ещё раз!")
         
       }
